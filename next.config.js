@@ -1,7 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
   async headers() {
     return [
       {
@@ -9,19 +7,12 @@ const nextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: `
-              default-src 'self';
-              script-src 'self' 'unsafe-eval' 'unsafe-inline' https://maps.googleapis.com;
-              connect-src 'self' https://maps.googleapis.com ;
-              img-src 'self' data: https://*.googleapis.com https://*.gstatic.com;
-              style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-              font-src 'self' https://fonts.gstatic.com;
-            `.replace(/\s{2,}/g, ' ').trim()
-          }
-        ]
-      }
+            value: `default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://maps.googleapis.com https://cdn.seline.so; connect-src 'self' https://api.seline.so; font-src 'self' data:; img-src 'self' data: https://*.gstatic.com https://*.googleapis.com; style-src 'self' 'unsafe-inline';`,
+          },
+        ],
+      },
     ];
-  }
+  },
 };
 
 module.exports = nextConfig;
