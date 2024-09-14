@@ -16,13 +16,13 @@ export default function Home() {
           {projects.map((project, index) => (
             <div 
               key={index}
-              className="bg-white dark:bg-gray-800 overflow-hidden shadow-lg rounded-2xl hover:shadow-2xl transition-shadow duration-300"
+              className="bg-white dark:bg-gray-800 overflow-hidden shadow-lg rounded-3xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
             >
               <div className="p-8">
-                <h3 className="text-2xl font-semibold mb-3">{project.name}</h3>
+                <h3 className="text-2xl font-bold mb-3 text-blue-600 dark:text-blue-400">{project.name}</h3>
                 <p className="text-gray-600 dark:text-gray-400 mb-6">{project.description}</p>
-                <Link href={project.url} className="inline-block px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors duration-300">
-                  探索项目
+                <Link href={project.url} className="inline-block px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full hover:from-blue-600 hover:to-purple-700 transition-all duration-300 shadow-md hover:shadow-lg">
+                  试试看
                 </Link>
               </div>
             </div>
