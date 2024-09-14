@@ -5,6 +5,7 @@ import AnimatedTitle from './components/AnimatedTitle';
 const projects = [
   { name: '2024最新退休计算器', description: '快来计算你的退休年龄吧！', url: 'https://tuixiu.chatgptnb.com' },
   { name: 'HN2XHS', description: 'Hacker News帖子一键转小红书风格', url: 'https://xhs.chatgptnb.com/' },
+  { name: '随机传送', description: '随机传送到世界任意角落', url: '/fireworks' },
 ];
 
 export default function Home() {
