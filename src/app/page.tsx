@@ -11,7 +11,7 @@ const projects = [
   // TODO: 这个可以集中精力做
   // { name: '隐私协议政策生成器', description: '隐私协议政策生成器', url: '/privacy-policy-generator' },
   //TODO: 烟花弹射器，示例网站：https://confettitherapy.com/
-  // { name: '烟花弹射器', description: '烟花弹射器', url: '/fireworks-launcher' },
+  // { name: 'Boom!', description: 'Boom! Boom! Boom!', url: '/fireworks-launcher' },
 ];
 
 export default function Home() {
