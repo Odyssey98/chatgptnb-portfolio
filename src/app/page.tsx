@@ -9,7 +9,7 @@ const projects = [
   // TODO: 转换效果不好，暂时废弃
   // { name: '网页转epub', description: 'AI 绘画', url: '/web-to-epub' },
   // TODO: 这个可以集中精力做
-  // { name: '隐私协议政策生成器', description: '隐私协议政策生成器', url: '/privacy-policy-generator' },
+  { name: '隐私协议政策生成器', description: '隐私协议政策生成器', url: '/privacy-policy-generator' },
   //TODO: 烟花弹射器，示例网站：https://confettitherapy.com/
   // { name: 'Boom!', description: 'Boom! Boom! Boom!', url: '/fireworks-launcher' },
 ];
