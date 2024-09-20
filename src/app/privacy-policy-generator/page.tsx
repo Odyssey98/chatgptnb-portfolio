@@ -82,39 +82,48 @@ export default function PrivacyPolicyGenerator() {
     }));
   }, []);
 
-  const renderQuickGeneration = () => (
-    <div className="space-y-8">
-      <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">{steps[state.quickStep].title}</h2>
-      <div className="overflow-x-auto">
-        <Steps model={steps.map(s => ({ icon: s.icon }))} activeIndex={state.quickStep} 
-               className="custom-steps mb-8 whitespace-nowrap" />
+  const renderQuickGeneration = () => {
+    const currentStepId = steps[state.quickStep].id;
+    const isNextDisabled = !state.quickSelections[currentStepId] || state.quickSelections[currentStepId].length === 0;
+
+    return (
+      <div className="space-y-8">
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">{steps[state.quickStep].title}</h2>
+        <div className="overflow-x-auto">
+          <Steps model={steps.map(s => ({ icon: s.icon }))} activeIndex={state.quickStep} 
+                 className="custom-steps mb-8 whitespace-nowrap" />
+        </div>
+        <div className="space-y-4">
+          {options[steps[state.quickStep].id].map(option => (
+            <div 
+              key={option} 
+              className="flex items-center bg-gray-50 dark:bg-gray-700 p-4 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition duration-150 cursor-pointer"
+              onClick={() => handleQuickSelection(option)}
+            >
+              <Checkbox
+                inputId={option}
+                checked={state.quickSelections[currentStepId]?.includes(option) || false}
+                className="text-blue-600 focus:ring-blue-500"
+              />
+              <label htmlFor={option} className="ml-4 text-lg text-gray-700 dark:text-gray-300 cursor-pointer flex-grow">{option}</label>
+            </div>
+          ))}
+        </div>
+        <div className="flex justify-between pt-8">
+          <Button label="上一步" icon="pi pi-chevron-left" onClick={prevQuickStep} disabled={state.quickStep === 0}
+                  className="bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 px-6 py-3 rounded-xl" />
+          <Button 
+            label={state.quickStep === steps.length - 1 ? '生成政策' : '下一步'} 
+            icon="pi pi-chevron-right" 
+            iconPos="right" 
+            onClick={nextQuickStep}
+            disabled={isNextDisabled}
+            className={`${isNextDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'} text-white dark:bg-blue-500 dark:hover:bg-blue-600 px-6 py-3 rounded-xl`}
+          />
+        </div>
       </div>
-      <div className="space-y-4">
-        {options[steps[state.quickStep].id].map(option => (
-          <div key={option} className="flex items-center bg-gray-50 dark:bg-gray-700 p-4 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition duration-150">
-            <Checkbox
-              inputId={option}
-              checked={state.quickSelections[steps[state.quickStep].id]?.includes(option) || false}
-              onChange={() => handleQuickSelection(option)}
-              className="text-blue-600 focus:ring-blue-500"
-            />
-            <label htmlFor={option} className="ml-4 text-lg text-gray-700 dark:text-gray-300">{option}</label>
-          </div>
-        ))}
-      </div>
-      <div className="flex justify-between pt-8">
-        <Button label="上一步" icon="pi pi-chevron-left" onClick={prevQuickStep} disabled={state.quickStep === 0}
-                className="bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 px-6 py-3 rounded-xl" />
-        <Button 
-          label={state.quickStep === steps.length - 1 ? '生成政策' : '下一步'} 
-          icon="pi pi-chevron-right" 
-          iconPos="right" 
-          onClick={nextQuickStep}
-          className="bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 px-6 py-3 rounded-xl" 
-        />
-      </div>
-    </div>
-  );
+    );
+  };
 
   const renderStep = () => {
     console.log('当前步骤:', state.step);
@@ -188,9 +197,9 @@ export default function PrivacyPolicyGenerator() {
         <meta property="og:title" content="隐私协议生成器 | 轻松创建您的隐私政策" />
         <meta property="og:description" content="使用我们的隐私协议生成器轻松创建符合您需求的隐私政策。快速、简单、专业。" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://您的网站域名/privacy-policy-generator" />
-        <meta property="og:image" content="https://您的网站域名/images/privacy-policy-generator-og.jpg" />
-        <link rel="canonical" href="https://您的网站域名/privacy-policy-generator" />
+        <meta property="og:url" content="https://chatgptnb.com/privacy-policy-generator" />
+        <meta property="og:image" content="https://chatgptnb.com/images/privacy-policy-generator-og.jpg" />
+        <link rel="canonical" href="https://chatgptnb.com/privacy-policy-generator" />
         <script type="application/ld+json">
           {JSON.stringify(structuredData)}
         </script>
