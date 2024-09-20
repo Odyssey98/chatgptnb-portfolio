@@ -8,21 +8,23 @@ import GenerationMethod from './components/GenerationMethod';
 import CustomQuestions from './components/CustomQuestions';
 import PolicyResult from './components/PolicyResult';
 import SaveOptions from './components/SaveOptions';
-import { FaIndustry, FaDatabase, FaChartBar, FaShareAlt, FaUserShield, FaLock, FaExclamationTriangle } from 'react-icons/fa';
 import Head from 'next/head';
+import 'primereact/resources/themes/lara-light-indigo/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
 
-type GenerationMethod = 'quick' | 'custom';
-type Step = 'method' | 'quickGeneration' | 'custom' | 'result' | 'save';
+type GenerationMethodType = 'quick' | 'custom';
+type StepType = 'method' | 'quickGeneration' | 'custom' | 'result' | 'save';
 type StepId = keyof typeof options;
 
-const steps: { id: StepId; title: string; icon: React.ReactNode }[] = [
-  { id: 'industry', title: '选择行业', icon: <FaIndustry /> },
-  { id: 'dataCollection', title: '数据收集', icon: <FaDatabase /> },
-  { id: 'dataUsage', title: '数据使用', icon: <FaChartBar /> },
-  { id: 'dataSharing', title: '数据共享', icon: <FaShareAlt /> },
-  { id: 'userRights', title: '用户权利', icon: <FaUserShield /> },
-  { id: 'security', title: '安全措施', icon: <FaLock /> },
-  { id: 'specialConsiderations', title: '特殊考虑', icon: <FaExclamationTriangle /> }
+const steps: { id: StepId; title: string; icon: string }[] = [
+  { id: 'industry', title: '选择行业', icon: 'pi pi-briefcase' },
+  { id: 'dataCollection', title: '数据收集', icon: 'pi pi-database' },
+  { id: 'dataUsage', title: '数据使用', icon: 'pi pi-chart-bar' },
+  { id: 'dataSharing', title: '数据共享', icon: 'pi pi-share-alt' },
+  { id: 'userRights', title: '用户权利', icon: 'pi pi-user' },
+  { id: 'security', title: '安全措施', icon: 'pi pi-lock' },
+  { id: 'specialConsiderations', title: '特殊考虑', icon: 'pi pi-exclamation-triangle' }
 ];
 
 const options = {
@@ -37,8 +39,8 @@ const options = {
 
 export default function PrivacyPolicyGenerator() {
   const [state, setState] = useState({
-    step: 'method' as Step,
-    generationMethod: 'quick' as GenerationMethod,
+    step: 'method' as StepType,
+    generationMethod: 'quick' as GenerationMethodType,
     quickStep: 0,
     quickSelections: {} as Record<StepId, string[]>,
     customAnswers: {} as Record<string, string>,
@@ -46,24 +48,28 @@ export default function PrivacyPolicyGenerator() {
   });
 
   const handleQuickSelection = useCallback((option: string) => {
-    const currentStepId = steps[state.quickStep].id;
-    setState(prev => ({
-      ...prev,
-      quickSelections: {
+    setState(prev => {
+      const currentStepId = steps[prev.quickStep].id;
+      const updatedSelections = {
         ...prev.quickSelections,
         [currentStepId]: prev.quickSelections[currentStepId]
           ? prev.quickSelections[currentStepId].includes(option)
             ? prev.quickSelections[currentStepId].filter(item => item !== option)
             : [...prev.quickSelections[currentStepId], option]
           : [option]
-      }
-    }));
-  }, [state.quickStep]);
+      };
+      return {
+        ...prev,
+        quickSelections: updatedSelections
+      };
+    });
+  }, []);
 
   const nextQuickStep = useCallback(() => {
     setState(prev => {
       if (prev.quickStep < steps.length - 1) {
-        return { ...prev, quickStep: prev.quickStep + 1 };
+        const newQuickStep = prev.quickStep + 1;
+        return { ...prev, quickStep: newQuickStep };
       } else {
         const policy = JSON.stringify(prev.quickSelections, null, 2);
         return {
@@ -76,25 +82,33 @@ export default function PrivacyPolicyGenerator() {
   }, []);
 
   const prevQuickStep = useCallback(() => {
-    setState(prev => ({
-      ...prev,
-      quickStep: Math.max(0, prev.quickStep - 1)
-    }));
+    setState(prev => {
+      const newQuickStep = Math.max(0, prev.quickStep - 1);
+      return { ...prev, quickStep: newQuickStep };
+    });
   }, []);
 
   const renderQuickGeneration = () => {
     const currentStepId = steps[state.quickStep].id;
+    const currentStep = steps[state.quickStep];
     const isNextDisabled = !state.quickSelections[currentStepId] || state.quickSelections[currentStepId].length === 0;
 
     return (
       <div className="space-y-8">
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">{steps[state.quickStep].title}</h2>
         <div className="overflow-x-auto">
-          <Steps model={steps.map(s => ({ icon: s.icon }))} activeIndex={state.quickStep} 
-                 className="custom-steps mb-8 whitespace-nowrap" />
+          <Steps 
+            key={state.quickStep}
+            model={steps.map(() => ({}))} 
+            activeIndex={state?.quickStep} 
+            className="mb-8 whitespace-nowrap" 
+          />
+        </div>
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 text-center">{currentStep.title}</h2>
+        <div className="flex justify-center items-center text-6xl text-blue-500 mb-8">
+          <i className={currentStep.icon}></i>
         </div>
         <div className="space-y-4">
-          {options[steps[state.quickStep].id].map(option => (
+          {options[currentStepId].map(option => (
             <div 
               key={option} 
               className="flex items-center bg-gray-50 dark:bg-gray-700 p-4 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition duration-150 cursor-pointer"
@@ -104,19 +118,29 @@ export default function PrivacyPolicyGenerator() {
                 inputId={option}
                 checked={state.quickSelections[currentStepId]?.includes(option) || false}
                 className="text-blue-600 focus:ring-blue-500"
+                onClick={(e) => e.stopPropagation()} 
               />
-              <label htmlFor={option} className="ml-4 text-lg text-gray-700 dark:text-gray-300 cursor-pointer flex-grow">{option}</label>
+              <label htmlFor={option} className="ml-4 text-lg text-gray-700 dark:text-gray-300 cursor-pointer flex-grow">
+                {option}
+              </label>
             </div>
           ))}
         </div>
         <div className="flex justify-between pt-8">
-          <Button label="上一步" icon="pi pi-chevron-left" onClick={prevQuickStep} disabled={state.quickStep === 0}
-                  className="bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 px-6 py-3 rounded-xl" />
+          <Button 
+            label="上一步" 
+            icon="pi pi-chevron-left" 
+            onClick={prevQuickStep} 
+            disabled={state.quickStep === 0}
+            className="bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 px-6 py-3 rounded-xl" 
+          />
           <Button 
             label={state.quickStep === steps.length - 1 ? '生成政策' : '下一步'} 
             icon="pi pi-chevron-right" 
             iconPos="right" 
-            onClick={nextQuickStep}
+            onClick={() => {
+              nextQuickStep();
+            }}
             disabled={isNextDisabled}
             className={`${isNextDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'} text-white dark:bg-blue-500 dark:hover:bg-blue-600 px-6 py-3 rounded-xl`}
           />
@@ -126,10 +150,9 @@ export default function PrivacyPolicyGenerator() {
   };
 
   const renderStep = () => {
-    console.log('当前步骤:', state.step);
     switch (state.step) {
       case 'method':
-        return <GenerationMethod onSelect={(method: GenerationMethod) => {
+        return <GenerationMethod onSelect={(method: GenerationMethodType) => {
           setState(prev => ({
             ...prev,
             generationMethod: method,
@@ -152,8 +175,6 @@ export default function PrivacyPolicyGenerator() {
           }} 
         />;
       case 'result':
-        console.log('渲染结果页面');
-        console.log('生成的政策:', state.generatedPolicy);
         return <PolicyResult 
           policy={state.generatedPolicy} 
           method={state.generationMethod}
@@ -225,7 +246,9 @@ export default function PrivacyPolicyGenerator() {
               <svg className="w-6 h-6 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
               </svg>
-              <p className="text-sm sm:text-base">请注意，这个生成器提供的是一个基本框架。您应该根据自己的具体情况和法律要求来调整最终的隐私政策。</p>
+              <p className="text-sm sm:text-base">
+                请注意，这个生成器提供的是一个基本框架。您应该根据自己的具体情况和法律要求来调整最终的隐私政策。
+              </p>
             </div>
           </div>
         </footer>
