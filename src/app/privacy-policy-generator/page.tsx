@@ -176,7 +176,7 @@ export default function PrivacyPolicyGenerator() {
         />;
       case 'result':
         return <PolicyResult 
-          policy={state.generatedPolicy} 
+          // policy={state.generatedPolicy} 
           method={state.generationMethod}
           quickSelections={state.quickSelections}
           customAnswers={state.customAnswers}
