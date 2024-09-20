@@ -8,13 +8,14 @@ import GenerationMethod from './components/GenerationMethod';
 import CustomQuestions from './components/CustomQuestions';
 import PolicyResult from './components/PolicyResult';
 import SaveOptions from './components/SaveOptions';
+import CompanyInfo, { CompanyInfoType } from './components/CompanyInfo';
 import Head from 'next/head';
 import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 
 type GenerationMethodType = 'quick' | 'custom';
-type StepType = 'method' | 'quickGeneration' | 'custom' | 'result' | 'save';
+type StepType = 'companyInfo' | 'method' | 'quickGeneration' | 'custom' | 'result' | 'save';
 type StepId = keyof typeof options;
 
 const steps: { id: StepId; title: string; icon: string }[] = [
@@ -39,7 +40,8 @@ const options = {
 
 export default function PrivacyPolicyGenerator() {
   const [state, setState] = useState({
-    step: 'method' as StepType,
+    step: 'method' as StepType, // 将初始步骤改为 'method'
+    companyInfo: {} as CompanyInfoType,
     generationMethod: 'quick' as GenerationMethodType,
     quickStep: 0,
     quickSelections: {} as Record<StepId, string[]>,
@@ -156,7 +158,15 @@ export default function PrivacyPolicyGenerator() {
           setState(prev => ({
             ...prev,
             generationMethod: method,
-            step: method === 'quick' ? 'quickGeneration' : 'custom'
+            step: 'companyInfo' // 无论选择哪种方法，都先进入公司信息步骤
+          }));
+        }} />;
+      case 'companyInfo':
+        return <CompanyInfo onSubmit={(info: CompanyInfoType) => {
+          setState(prev => ({
+            ...prev,
+            companyInfo: info,
+            step: prev.generationMethod === 'quick' ? 'quickGeneration' : 'custom'
           }));
         }} />;
       case 'quickGeneration':
@@ -180,6 +190,7 @@ export default function PrivacyPolicyGenerator() {
           method={state.generationMethod}
           quickSelections={state.quickSelections}
           customAnswers={state.customAnswers}
+          companyInfo={state.companyInfo}
           onEdit={() => setState(prev => ({
             ...prev,
             step: prev.generationMethod === 'quick' ? 'quickGeneration' : 'custom'

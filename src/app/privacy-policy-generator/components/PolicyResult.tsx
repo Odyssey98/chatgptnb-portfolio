@@ -3,6 +3,7 @@ import { Button } from 'primereact/button';
 import jsPDF from 'jspdf';
 import { saveAs } from 'file-saver';
 import { generatePolicy } from '../utils/generatePolicy';
+import { CompanyInfoType } from './CompanyInfo';
 
 type GenerationMethod = 'quick' | 'custom';
 type OptionKey = 'industry' | 'dataCollection' | 'dataUsage' | 'dataSharing' | 'userRights' | 'security' | 'specialConsiderations';
@@ -13,6 +14,7 @@ interface PolicyResultProps {
   customAnswers: Record<string, string>;
   onEdit: () => void;
   onSave: () => void;
+  companyInfo: CompanyInfoType;
 }
 
 const PolicyResult: React.FC<PolicyResultProps> = ({
@@ -27,14 +29,27 @@ const PolicyResult: React.FC<PolicyResultProps> = ({
 
   const generatePDF = () => {
     const doc = new jsPDF();
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(12);
-
+    
+    // 使用默认字体
+    doc.setFont('helvetica');
+    doc.setFontSize(10);
+  
+    // 将文本分成多行
     const splitText = doc.splitTextToSize(generatedPolicy, 180);
-    doc.text(splitText, 15, 15);
+    
+    // 添加多个页面以容纳所有文本
+    let y = 15;
+    for (let i = 0; i < splitText.length; i++) {
+      if (y > 280) {
+        doc.addPage();
+        y = 15;
+      }
+      doc.text(splitText[i], 15, y);
+      y += 7;
+    }
+  
     doc.save("隐私政策.pdf");
   };
-
   const saveAsMarkdown = () => {
     const blob = new Blob([generatedPolicy], {type: "text/markdown;charset=utf-8"});
     saveAs(blob, "隐私政策.md");
