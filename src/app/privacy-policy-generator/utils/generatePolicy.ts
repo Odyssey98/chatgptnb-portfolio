@@ -7,23 +7,25 @@ export function generatePolicy(
   method: GenerationMethod,
   quickSelections: Record<OptionKey, string[]>,
   customAnswers: Record<string, string>,
-  companyInfo: CompanyInfoType
+  companyInfo: CompanyInfoType,
+  customIndustry: string 
 ): string {
   let policy = `# ${companyInfo.name}隐私政策\n\n`;
 
   if (method === 'quick') {
-    policy += generateQuickPolicy(quickSelections, companyInfo);
+    policy += generateQuickPolicy(quickSelections, companyInfo, customIndustry);
   } else {
     policy += generateCustomPolicy(customAnswers);
   }
   return policy;
 }
 
-function generateQuickPolicy(quickSelections: Record<OptionKey, string[]>, companyInfo: CompanyInfoType): string {
+function generateQuickPolicy(quickSelections: Record<OptionKey, string[]>, companyInfo: CompanyInfoType, customIndustry: string): string {
   let policy = "";
 
   // 引言部分
-  policy += `## 1. 引言\n${companyInfo.name}是一家${quickSelections.industry.join('、')}行业的公司。我们重视您的隐私，并致力于保护您的个人信息。本隐私政策（"政策"）旨在向您说明我们如何收集、使用、存储和保护您的个人信息，以及您享有的相关权利。\n\n`;
+  const industry = quickSelections.industry[0] === '其他' ? customIndustry : quickSelections.industry.join('、');
+  policy += `## 1. 引言\n${companyInfo.name}是一家${industry}行业的公司。我们重视您的隐私，并致力于保护您的个人信息。本隐私政策（"政策"）旨在向您说明我们如何收集、使用、存储和保护您的个人信息，以及您享有的相关权利。\n\n`;
   policy += `${companyInfo.name}认识到保护您的隐私的重要性。我们感谢您对我们的信任。本政策描述了我们如何处理通过我们的应用程序（统称为"平台"）收集的用户信息。通过平台下载、使用和/或访问我们的服务，即表示您明确同意本政策中描述的信息做法。如果您不同意本政策中的任何条款，请不要使用我们的服务。\n\n`;
 
   // 信息收集部分

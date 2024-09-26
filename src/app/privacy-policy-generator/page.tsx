@@ -14,6 +14,7 @@ import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import { RadioButton } from 'primereact/radiobutton';
+import { InputText } from 'primereact/inputtext';
 
 type GenerationMethodType = 'quick' | 'custom';
 type StepType = 'companyInfo' | 'method' | 'quickGeneration' | 'custom' | 'result' | 'save';
@@ -84,6 +85,7 @@ export default function PrivacyPolicyGenerator() {
     quickSelections: {} as Record<StepId, string[]>,
     customAnswers: {} as Record<string, string>,
     generatedPolicy: '',
+    customIndustry: '', // 新增自定义行业输入状态
   });
 
   const handleQuickSelection = useCallback((option: string) => {
@@ -144,6 +146,7 @@ export default function PrivacyPolicyGenerator() {
     const currentStep = steps[state.quickStep];
     const isNextDisabled = !state.quickSelections[currentStepId] || state.quickSelections[currentStepId].length === 0;
     const isSingleSelect = currentStepId === 'industry' || currentStepId === 'dataSharing';
+    const isOtherIndustrySelected = currentStepId === 'industry' && state.quickSelections[currentStepId]?.[0] === '其他';
 
     return (
       <div className="space-y-8">
@@ -188,6 +191,14 @@ export default function PrivacyPolicyGenerator() {
               </label>
             </div>
           ))}
+          {isOtherIndustrySelected && (
+            <InputText
+              value={state.customIndustry}
+              onChange={(e) => setState(prev => ({ ...prev, customIndustry: e.target.value }))}
+              placeholder="请输入您的行业"
+              className="w-full p-3 mt-2"
+            />
+          )}
         </div>
         <div className="flex justify-between pt-8">
           <Button 
@@ -252,6 +263,7 @@ export default function PrivacyPolicyGenerator() {
           quickSelections={state.quickSelections}
           customAnswers={state.customAnswers}
           companyInfo={state.companyInfo}
+          customIndustry={state.customIndustry}
           onEdit={() => setState(prev => ({
             ...prev,
             step: prev.generationMethod === 'quick' ? 'quickGeneration' : 'custom'

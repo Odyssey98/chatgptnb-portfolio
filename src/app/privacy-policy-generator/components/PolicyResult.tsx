@@ -15,6 +15,7 @@ interface PolicyResultProps {
   onEdit: () => void;
   onSave: () => void;
   companyInfo: CompanyInfoType;
+  customIndustry: string;
 }
 
 const PolicyResult: React.FC<PolicyResultProps> = ({
@@ -22,9 +23,10 @@ const PolicyResult: React.FC<PolicyResultProps> = ({
   quickSelections,
   customAnswers,
   onEdit,
-  companyInfo
+  companyInfo,
+  customIndustry
 }) => {
-  const generatedPolicy = generatePolicy(method, quickSelections, customAnswers, companyInfo);
+  const generatedPolicy = generatePolicy(method, quickSelections, customAnswers, companyInfo, customIndustry);
   const [activeTab, setActiveTab] = useState<'preview' | 'raw'>('preview');
 
   // const generatePDF = () => {
