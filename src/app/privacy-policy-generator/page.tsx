@@ -13,6 +13,7 @@ import Head from 'next/head';
 import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
+import { RadioButton } from 'primereact/radiobutton';
 
 type GenerationMethodType = 'quick' | 'custom';
 type StepType = 'companyInfo' | 'method' | 'quickGeneration' | 'custom' | 'result' | 'save';
@@ -88,14 +89,26 @@ export default function PrivacyPolicyGenerator() {
   const handleQuickSelection = useCallback((option: string) => {
     setState(prev => {
       const currentStepId = steps[prev.quickStep].id;
-      const updatedSelections = {
-        ...prev.quickSelections,
-        [currentStepId]: prev.quickSelections[currentStepId]
-          ? prev.quickSelections[currentStepId].includes(option)
-            ? prev.quickSelections[currentStepId].filter(item => item !== option)
-            : [...prev.quickSelections[currentStepId], option]
-          : [option]
-      };
+      let updatedSelections;
+
+      // 对于互斥的选项进行单选处理
+      if (currentStepId === 'industry' || currentStepId === 'dataSharing') {
+        updatedSelections = {
+          ...prev.quickSelections,
+          [currentStepId]: [option]
+        };
+      } else {
+        // 对于其他选项保持多选
+        updatedSelections = {
+          ...prev.quickSelections,
+          [currentStepId]: prev.quickSelections[currentStepId]
+            ? prev.quickSelections[currentStepId].includes(option)
+              ? prev.quickSelections[currentStepId].filter(item => item !== option)
+              : [...prev.quickSelections[currentStepId], option]
+            : [option]
+        };
+      }
+
       return {
         ...prev,
         quickSelections: updatedSelections
@@ -130,6 +143,7 @@ export default function PrivacyPolicyGenerator() {
     const currentStepId = steps[state.quickStep].id;
     const currentStep = steps[state.quickStep];
     const isNextDisabled = !state.quickSelections[currentStepId] || state.quickSelections[currentStepId].length === 0;
+    const isSingleSelect = currentStepId === 'industry' || currentStepId === 'dataSharing';
 
     return (
       <div className="space-y-8">
@@ -152,12 +166,23 @@ export default function PrivacyPolicyGenerator() {
               className="flex items-center bg-gray-50 dark:bg-gray-700 p-4 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition duration-150 cursor-pointer"
               onClick={() => handleQuickSelection(option)}
             >
-              <Checkbox
-                inputId={option}
-                checked={state.quickSelections[currentStepId]?.includes(option) || false}
-                className="text-blue-600 focus:ring-blue-500"
-                onClick={(e) => e.stopPropagation()} 
-              />
+              {isSingleSelect ? (
+                <RadioButton
+                  inputId={option}
+                  name={currentStepId}
+                  value={option}
+                  onChange={() => handleQuickSelection(option)}
+                  checked={state.quickSelections[currentStepId]?.[0] === option}
+                  className="text-blue-600 focus:ring-blue-500"
+                />
+              ) : (
+                <Checkbox
+                  inputId={option}
+                  checked={state.quickSelections[currentStepId]?.includes(option) || false}
+                  className="text-blue-600 focus:ring-blue-500"
+                  onClick={(e) => e.stopPropagation()} 
+                />
+              )}
               <label htmlFor={option} className="ml-4 text-lg text-gray-700 dark:text-gray-300 cursor-pointer flex-grow">
                 {option}
               </label>
