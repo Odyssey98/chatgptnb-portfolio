@@ -130,14 +130,14 @@ const PolicyResult: React.FC<PolicyResultProps> = ({
 
       {/* 预览模式 */}
       {activeTab === 'preview' && (
-        <div className="border rounded-lg p-4 bg-white dark:bg-gray-900 min-h-[300px] overflow-auto">
+        <div className="border rounded-lg p-4 bg-white dark:bg-gray-900 h-[500px] overflow-y-auto">
           <div dangerouslySetInnerHTML={{ __html: marked.parse(generatedPolicy) }} />
         </div>
       )}
 
       {/* 原始文本模式 */}
       {activeTab === 'raw' && (
-        <div className="border rounded-lg p-4 bg-gray-50 dark:bg-gray-900 min-h-[300px] whitespace-pre-wrap text-gray-800 dark:text-gray-200 overflow-auto">
+        <div className="border rounded-lg p-4 bg-gray-50 dark:bg-gray-900 h-[500px] overflow-y-auto whitespace-pre-wrap text-gray-800 dark:text-gray-200">
           {generatedPolicy}
         </div>
       )}
