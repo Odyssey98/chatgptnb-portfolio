@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Button } from 'primereact/button';
-import jsPDF from 'jspdf';
 import { saveAs } from 'file-saver';
 import { generatePolicy } from '../utils/generatePolicy';
 import { CompanyInfoType } from './CompanyInfo';
+import { marked } from 'marked';
 
 type GenerationMethod = 'quick' | 'custom';
 type OptionKey = 'industry' | 'dataCollection' | 'dataUsage' | 'dataSharing' | 'userRights' | 'security' | 'specialConsiderations';
@@ -22,62 +22,89 @@ const PolicyResult: React.FC<PolicyResultProps> = ({
   quickSelections,
   customAnswers,
   onEdit,
-  onSave,
   companyInfo
 }) => {
   const generatedPolicy = generatePolicy(method, quickSelections, customAnswers, companyInfo);
   const [activeTab, setActiveTab] = useState<'preview' | 'raw'>('preview');
 
-  const generatePDF = () => {
-    const doc = new jsPDF();
+  // const generatePDF = () => {
+  //   const doc = new jsPDF();
+  //   let y = 20;
+  //   const pageWidth = doc.internal.pageSize.getWidth();
+  //   const margin = 20;
+  //   const maxWidth = pageWidth - 2 * margin;
+
+  //   const addTextToDoc = (text: string, fontSize = 12, isTitle = false) => {
+  //     doc.setFontSize(fontSize);
+  //     const lines = doc.splitTextToSize(text, maxWidth);
+  //     lines.forEach((line: string) => {
+  //       if (y > 280) {
+  //         doc.addPage();
+  //         y = 20;
+  //       }
+  //       doc.text(line, margin, y);
+  //       y += fontSize * 0.5 + (isTitle ? 5 : 2);
+  //     });
+  //   };
+
+  //   // 解析 Markdown
+  //   const tokens = marked.lexer(generatedPolicy);
     
-    // 设置字体
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(10);
-  
-    // 添加标题
-    doc.setFontSize(16);
-    doc.text(`${companyInfo.name}隐私政策`, 20, 20);
-    doc.setFontSize(10);
-  
-    // 将政策文本分割成段落
-    const paragraphs = generatedPolicy.split('\n\n');
-  
-    let y = 30;
-    paragraphs.forEach((paragraph) => {
-      if (paragraph.startsWith('#')) {
-        // 处理标题
-        doc.setFontSize(14);
-        doc.text(paragraph.replace(/^#+\s/, ''), 20, y);
-        doc.setFontSize(10);
-        y += 10;
-      } else {
-        // 处理普通段落
-        const lines = doc.splitTextToSize(paragraph, 170);
-        lines.forEach((line: string | string[]) => {
-          if (y > 280) {
-            doc.addPage();
-            y = 20;
-          }
-          doc.text(line, 20, y);
-          y += 7;
-        });
-      }
-      y += 5;
-    });
-  
-    // 保存 PDF
-    doc.save(`${companyInfo.name}隐私政策.pdf`);
+  //   tokens.forEach((token: marked.Token) => {
+  //     switch (token.type) {
+  //       case 'heading':
+  //         const fontSize = 24 - (token as marked.Tokens.Heading).depth * 2;
+  //         addTextToDoc((token as marked.Tokens.Heading).text, fontSize, true);
+  //         break;
+  //       case 'paragraph':
+  //         addTextToDoc((token as marked.Tokens.Paragraph).text);
+  //         break;
+  //       case 'list':
+  //         (token as marked.Tokens.List).items.forEach((item) => {
+  //           addTextToDoc(`• ${item.text}`);
+  //         });
+  //         break;
+  //     }
+  //     y += 5; // 段落间距
+  //   });
+
+  //   doc.save(`${companyInfo.name}隐私政策.pdf`);
+  // };
+
+  const saveAsHTML = () => {
+    const htmlContent = marked.parse(generatedPolicy);
+    const fullHTML = `
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${companyInfo.name}隐私政策</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; }
+        h1 { color: #2c3e50; }
+        h2 { color: #34495e; }
+        ul { padding-left: 20px; }
+    </style>
+</head>
+<body>
+    ${htmlContent}
+</body>
+</html>`;
+    const blob = new Blob([fullHTML], {type: "text/html;charset=utf-8"});
+    saveAs(blob, `${companyInfo.name}隐私政策.html`);
   };
 
   const saveAsMarkdown = () => {
     const blob = new Blob([generatedPolicy], {type: "text/markdown;charset=utf-8"});
-    saveAs(blob, "隐私政策.md");
+    saveAs(blob, `${companyInfo.name}隐私政策.md`);
   };
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(generatedPolicy).then(() => {
-      // 显示复制成功的提示
+      console.log('内容已复制到剪贴板');
+    }).catch(err => {
+      console.error('复制失败:', err);
     });
   };
 
@@ -85,7 +112,7 @@ const PolicyResult: React.FC<PolicyResultProps> = ({
     <div className="space-y-6 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
       <h2 className="text-3xl font-bold mb-6 text-gray-800 dark:text-white">生成的隐私政策</h2>
       
-      {/* 添加选项卡切换 */}
+      {/* 选项卡切换 */}
       <div className="flex mb-4">
         <button
           onClick={() => setActiveTab('preview')}
@@ -104,8 +131,7 @@ const PolicyResult: React.FC<PolicyResultProps> = ({
       {/* 预览模式 */}
       {activeTab === 'preview' && (
         <div className="border rounded-lg p-4 bg-white dark:bg-gray-900 min-h-[300px] overflow-auto">
-          {/* 使用 dangerouslySetInnerHTML 来渲染格式化的HTML */}
-          <div dangerouslySetInnerHTML={{ __html: formatPolicy(generatedPolicy) }} />
+          <div dangerouslySetInnerHTML={{ __html: marked.parse(generatedPolicy) }} />
         </div>
       )}
 
@@ -117,26 +143,13 @@ const PolicyResult: React.FC<PolicyResultProps> = ({
       )}
 
       <div className="flex flex-wrap justify-between gap-4">
-        <Button label="编辑" icon="pi pi-pencil" onClick={onEdit} className="p-button-secondary" />
-        <Button label="保存" icon="pi pi-save" onClick={onSave} className="p-button-secondary" />
-        <Button label="下载 PDF" icon="pi pi-file-pdf" onClick={generatePDF} className="p-button-secondary" />
+        <Button label="回退编辑" icon="pi pi-pencil" onClick={onEdit} className="p-button-secondary" />
+        <Button label="下载 HTML" icon="pi pi-file" onClick={saveAsHTML} className="p-button-secondary" />
         <Button label="下载 Markdown" icon="pi pi-file" onClick={saveAsMarkdown} className="p-button-secondary" />
         <Button label="复制到剪贴板" icon="pi pi-copy" onClick={copyToClipboard} className="p-button-secondary" />
       </div>
     </div>
   );
 };
-
-// 添加一个函数来格式化政策文本为HTML
-function formatPolicy(policy: string): string {
-  return policy
-    .replace(/^# (.*$)/gim, '<h1 class="text-2xl font-bold mt-4 mb-2">$1</h1>')
-    .replace(/^## (.*$)/gim, '<h2 class="text-xl font-semibold mt-3 mb-2">$1</h2>')
-    .replace(/^### (.*$)/gim, '<h3 class="text-lg font-medium mt-2 mb-1">$1</h3>')
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.*?)\*/g, '<em>$1</em>')
-    .replace(/\n/g, '<br>')
-    .replace(/• (.*)/g, '<li>$1</li>');
-}
 
 export default PolicyResult;
