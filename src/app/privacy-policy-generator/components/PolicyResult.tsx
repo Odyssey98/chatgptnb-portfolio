@@ -22,34 +22,54 @@ const PolicyResult: React.FC<PolicyResultProps> = ({
   quickSelections,
   customAnswers,
   onEdit,
-  onSave
+  onSave,
+  companyInfo
 }) => {
-  const generatedPolicy = generatePolicy(method, quickSelections, customAnswers);
+  const generatedPolicy = generatePolicy(method, quickSelections, customAnswers, companyInfo);
   const [activeTab, setActiveTab] = useState<'preview' | 'raw'>('preview');
 
   const generatePDF = () => {
     const doc = new jsPDF();
     
-    // 使用默认字体
-    doc.setFont('helvetica');
+    // 设置字体
+    doc.setFont('helvetica', 'normal');
     doc.setFontSize(10);
   
-    // 将文本分成多行
-    const splitText = doc.splitTextToSize(generatedPolicy, 180);
-    
-    // 添加多个页面以容纳所有文本
-    let y = 15;
-    for (let i = 0; i < splitText.length; i++) {
-      if (y > 280) {
-        doc.addPage();
-        y = 15;
-      }
-      doc.text(splitText[i], 15, y);
-      y += 7;
-    }
+    // 添加标题
+    doc.setFontSize(16);
+    doc.text(`${companyInfo.name}隐私政策`, 20, 20);
+    doc.setFontSize(10);
   
-    doc.save("隐私政策.pdf");
+    // 将政策文本分割成段落
+    const paragraphs = generatedPolicy.split('\n\n');
+  
+    let y = 30;
+    paragraphs.forEach((paragraph) => {
+      if (paragraph.startsWith('#')) {
+        // 处理标题
+        doc.setFontSize(14);
+        doc.text(paragraph.replace(/^#+\s/, ''), 20, y);
+        doc.setFontSize(10);
+        y += 10;
+      } else {
+        // 处理普通段落
+        const lines = doc.splitTextToSize(paragraph, 170);
+        lines.forEach((line: string | string[]) => {
+          if (y > 280) {
+            doc.addPage();
+            y = 20;
+          }
+          doc.text(line, 20, y);
+          y += 7;
+        });
+      }
+      y += 5;
+    });
+  
+    // 保存 PDF
+    doc.save(`${companyInfo.name}隐私政策.pdf`);
   };
+
   const saveAsMarkdown = () => {
     const blob = new Blob([generatedPolicy], {type: "text/markdown;charset=utf-8"});
     saveAs(blob, "隐私政策.md");
@@ -109,15 +129,14 @@ const PolicyResult: React.FC<PolicyResultProps> = ({
 
 // 添加一个函数来格式化政策文本为HTML
 function formatPolicy(policy: string): string {
-  // 实现简单的Markdown到HTML的转换
-  // 这里只是一个示例,您可能需要使用更复杂的Markdown解析器
   return policy
-    .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-    .replace(/^## (.*$)/gim, '<h2>$1</h2>')
-    .replace(/^### (.*$)/gim, '<h3>$1</h3>')
-    .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
-    .replace(/\*(.*)\*/gim, '<em>$1</em>')
-    .replace(/\n/gim, '<br>');
+    .replace(/^# (.*$)/gim, '<h1 class="text-2xl font-bold mt-4 mb-2">$1</h1>')
+    .replace(/^## (.*$)/gim, '<h2 class="text-xl font-semibold mt-3 mb-2">$1</h2>')
+    .replace(/^### (.*$)/gim, '<h3 class="text-lg font-medium mt-2 mb-1">$1</h3>')
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    .replace(/\n/g, '<br>')
+    .replace(/• (.*)/g, '<li>$1</li>');
 }
 
 export default PolicyResult;
