@@ -316,10 +316,8 @@ export default function PrivacyPolicyGenerator() {
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-center text-gray-900 dark:text-white mb-8 sm:mb-12">
               隐私协议政策生成器
             </h1>
-            <div className="bg-white dark:bg-gray-800 shadow-xl sm:shadow-2xl rounded-2xl sm:rounded-3xl overflow-hidden">
-              <div className="p-4 sm:p-6 lg:p-8">
-                {renderStep()}
-              </div>
+            <div className="w-full max-w-4xl mx-auto px-4 py-8 sm:py-12 lg:py-16">
+              {renderStep()}
             </div>
           </div>
         </main>

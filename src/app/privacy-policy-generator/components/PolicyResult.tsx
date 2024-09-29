@@ -112,7 +112,7 @@ const PolicyResult: React.FC<PolicyResultProps> = ({
 
   return (
     <div className="space-y-6 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-      <h2 className="text-3xl font-bold mb-6 text-gray-800 dark:text-white">生成的隐私政策</h2>
+      {/* <h2 className="text-3xl font-bold mb-6 text-gray-800 dark:text-white">生成的隐私政策</h2> */}
       
       {/* 选项卡切换 */}
       <div className="flex mb-4">
