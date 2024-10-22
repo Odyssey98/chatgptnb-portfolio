@@ -5,13 +5,14 @@ import AnimatedTitle from './components/AnimatedTitle';
 const projects = [
   { name: '2024最新退休计算器', description: '快来计算你的退休年龄吧！', url: 'https://tuixiu.chatgptnb.com' },
   { name: 'HN2XHS', description: 'Hacker News帖子一键转小红书风格', url: 'https://xhs.chatgptnb.com/' },
-  { name: '随机传送', description: '随机传送到世界任意角落', url: '/fireworks' },
+  // { name: '随机传送', description: '随机传送到世界任意角落', url: '/fireworks' },
   // TODO: 转换效果不好，暂时废弃
   // { name: '网页转epub', description: 'AI 绘画', url: '/web-to-epub' },
   // TODO: 这个可以集中精力做
   { name: '隐私协议政策生成器', description: '隐私协议政策生成器', url: '/privacy-policy-generator' },
   //TODO: 烟花弹射器，示例网站：https://confettitherapy.com/
   // { name: 'Boom!', description: 'Boom! Boom! Boom!', url: '/fireworks-launcher' },
+  { name: '真实地址生成器', description: '生成真实可用的随机地址', url: '/random-address-generator' },
 ];
 
 export default function Home() {
