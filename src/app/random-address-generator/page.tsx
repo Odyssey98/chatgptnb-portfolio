@@ -8,6 +8,7 @@ interface SavedAddress {
   gender: string;
   phone: string;
   address: string;
+  isTaxFree: boolean;
 }
 
 export default function RandomAddressGenerator() {
@@ -22,6 +23,7 @@ export default function RandomAddressGenerator() {
   const [mapUrl, setMapUrl] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [noteInput, setNoteInput] = useState('');
+  const [isTaxFree, setIsTaxFree] = useState(false);
 
   useEffect(() => {
     generateAddress();
@@ -52,6 +54,7 @@ export default function RandomAddressGenerator() {
       setName(data.name);
       setGender(data.gender);
       setPhone(data.phone);
+      setIsTaxFree(data.isTaxFree);
       
       // 使用 Google Maps Static API 替代 iframe
       const encodedAddress = encodeURIComponent(data.address);
@@ -79,7 +82,7 @@ export default function RandomAddressGenerator() {
   };
 
   const saveAddress = () => {
-    const newAddress: SavedAddress = { note: noteInput, name, gender, phone, address };
+    const newAddress: SavedAddress = { note: noteInput, name, gender, phone, address, isTaxFree };
     const updatedAddresses = [...savedAddresses, newAddress];
     setSavedAddresses(updatedAddresses);
     localStorage.setItem('savedAddresses', JSON.stringify(updatedAddresses));
@@ -133,6 +136,7 @@ export default function RandomAddressGenerator() {
                  onClick={() => copyToClipboard(address, 'address')}>
               <strong>地址：</strong> {address}
               {copiedField === 'address' && <span className="text-green-500 ml-2">已复制</span>}
+              {isTaxFree && <span className="bg-yellow-500 text-black px-2 py-1 rounded ml-2 text-sm font-bold">免税区</span>}
             </div>
           </div>
 
@@ -216,6 +220,9 @@ export default function RandomAddressGenerator() {
                         复制
                       </button>
                     </div>
+                    {saved.isTaxFree && (
+                      <div className="bg-yellow-500 text-black px-2 py-1 rounded text-sm font-bold text-center">免税区</div>
+                    )}
                   </div>
                 </div>
               ))}

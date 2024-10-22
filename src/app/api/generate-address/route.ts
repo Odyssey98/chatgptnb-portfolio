@@ -6,6 +6,7 @@ interface AddressData {
   name: string;
   gender: string;
   phone: string;
+  isTaxFree: boolean;
 }
 
 // 姓氏和名字数据
@@ -202,9 +203,22 @@ const states = {
   ID: ['Jakarta', 'East Java', 'West Java', 'Central Java', 'North Sumatra', 'South Sulawesi', 'Banten', 'West Sumatra', 'Lampung', 'Riau'],
 };
 
-function getRandomState(country: string): string {
+// 定义免税地区
+const taxFreeStates: { [key: string]: string[] } = {
+  US: ['Alaska', 'Delaware', 'Montana', 'New Hampshire', 'Oregon'],
+  // 可以为其他国家添加免税地区
+};
+
+// 修改 getRandomState 函数
+function getRandomState(country: string): { state: string; isTaxFree: boolean } {
   const countryStates = states[country as keyof typeof states];
-  return countryStates ? getRandomElement(countryStates) : getRandomElement(states.US);
+  if (!countryStates) return { state: getRandomElement(states.US), isTaxFree: false };
+
+  const taxFree = taxFreeStates[country];
+  if (taxFree && taxFree.length > 0) {
+    return { state: getRandomElement(taxFree), isTaxFree: true };
+  }
+  return { state: getRandomElement(countryStates), isTaxFree: false };
 }
 
 // 邮编格式
@@ -297,11 +311,10 @@ function generateName(country: string): string {
   }
 }
 
-function generateAddress(country: string): string {
+function generateAddress(country: string, state: string): string {
   const buildingNumber = Math.floor(1 + Math.random() * 999);
   const street = getRandomStreet(country);
   const city = getRandomCity(country);
-  const state = getRandomState(country);
   const zip = generateZip(country);
 
   switch (country) {
@@ -336,19 +349,21 @@ export async function POST(request: NextRequest) {
     }
 
     const gender = Math.random() > 0.5 ? '男' : '女';
+    const { state, isTaxFree } = getRandomState(country);
 
     const responseData: AddressData = {
       name: generateName(country),
       gender: gender,
       phone: generatePhone(country),
-      address: generateAddress(country),
+      address: generateAddress(country, state),
+      isTaxFree: isTaxFree
     };
 
     return NextResponse.json(responseData);
   } catch (error) {
-    console.error('Error generating address:', error);
+    console.error('生成地址时出错:', error);
     return NextResponse.json(
-      { error: 'Failed to generate address' },
+      { error: '生成地址失败' },
       { status: 500 }
     );
   }
