@@ -98,7 +98,10 @@ export default function RandomAddressGenerator() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 text-gray-800 dark:text-gray-200 py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8 text-center">真实地址生成器</h1>
+        <div className="flex flex-col items-center mb-8">
+          <h1 className="text-4xl font-bold text-center mb-4">真实地址生成器</h1>
+          <span className="bg-yellow-500 text-black px-3 py-1 rounded-full text-sm font-bold">优先生成免税区</span>
+        </div>
         <p className="text-center mb-8">点击即可复制信息</p>
         <div className="bg-white dark:bg-gray-800 shadow-lg rounded-3xl p-8 relative">
           <div className="mb-6">
@@ -146,7 +149,7 @@ export default function RandomAddressGenerator() {
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors"
               disabled={isLoading}
             >
-              {isLoading ? '生成中...' : '获取新地址'}
+              {isLoading ? '生成中...' : '生成新地址'}
             </button>
             <button
               onClick={openSaveModal}
