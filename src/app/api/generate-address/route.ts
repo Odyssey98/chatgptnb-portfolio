@@ -182,7 +182,7 @@ const states = {
   FR: ['Île-de-France', 'Auvergne-Rhône-Alpes', 'Hauts-de-France', 'Provence-Alpes-Côte d\'Azur', 'Occitanie', 'Nouvelle-Aquitaine', 'Grand Est', 'Normandie', 'Bretagne', 'Pays de la Loire'],
   DE: ['Bavaria', 'North Rhine-Westphalia', 'Baden-Württemberg', 'Lower Saxony', 'Hesse', 'Saxony', 'Rhineland-Palatinate', 'Berlin', 'Schleswig-Holstein', 'Brandenburg'],
   CN: ['北京市', '上海市', '广东省', '江苏省', '浙江省', '山东省', '河南省', '四川省', '湖北省', '福建省'],
-  TW: ['台北市', '新北市', '桃园市', '台中市', '台南市', '高雄市', '基隆市', '新竹市', '嘉义市'],
+  TW: ['台北市', '新北市', '桃园市', '台中市', '台南市', '高雄市', '基隆���', '新竹市', '嘉义市'],
   HK: ['香港岛', '九龙', '新界'],
   JP: ['東京都', '大阪府', '愛知県', '神奈川県', '福岡県', '北海道', '兵庫県', '千葉県', '埼玉県', '静岡県'],
   IN: ['Maharashtra', 'Uttar Pradesh', 'Bihar', 'West Bengal', 'Madhya Pradesh', 'Tamil Nadu', 'Rajasthan', 'Karnataka', 'Gujarat', 'Andhra Pradesh'],
@@ -206,19 +206,45 @@ const states = {
 // 定义免税地区
 const taxFreeStates: { [key: string]: string[] } = {
   US: ['Alaska', 'Delaware', 'Montana', 'New Hampshire', 'Oregon'],
-  // 可以为其他国家添加免税地区
+  CN: ['海南省'],
+  AE: ['Dubai', 'Abu Dhabi'],
+  HK: ['香港'],
+  SG: ['Singapore'],
+  CH: ['Zug', 'Schwyz', 'Nidwalden'],
+  LU: ['Luxembourg'],
+  IE: ['Shannon'],
+  PA: ['Colón Free Trade Zone'],
+  MY: ['Labuan'],
+  MU: ['Mauritius'],
+  MT: ['Malta'],
+  CY: ['Cyprus'],
+  BH: ['Bahrain'],
+  JE: ['Jersey'],
+  GG: ['Guernsey'],
+  IM: ['Isle of Man'],
+  MC: ['Monaco'],
+  LI: ['Liechtenstein'],
+  VG: ['British Virgin Islands'],
+  KY: ['Cayman Islands'],
+  BM: ['Bermuda'],
+  MO: ['Macau'],
 };
 
-// 修改 getRandomState 函数
-function getRandomState(country: string): { state: string; isTaxFree: boolean } {
+interface StateInfo {
+  state: string;
+  isTaxFree: boolean;
+}
+
+function getRandomState(country: string): StateInfo {
   const countryStates = states[country as keyof typeof states];
   if (!countryStates) return { state: getRandomElement(states.US), isTaxFree: false };
 
-  const taxFree = taxFreeStates[country];
-  if (taxFree && taxFree.length > 0) {
-    return { state: getRandomElement(taxFree), isTaxFree: true };
-  }
   return { state: getRandomElement(countryStates), isTaxFree: false };
+}
+
+function getRandomTaxFreeState(country: string): StateInfo | null {
+  const countryTaxFreeStates = taxFreeStates[country];
+  return countryTaxFreeStates ? { state: getRandomElement(countryTaxFreeStates), isTaxFree: true } : null;
 }
 
 // 邮编格式
@@ -333,10 +359,10 @@ function generatePhone(country: string): string {
 
 export async function POST(request: NextRequest) {
   try {
-    const { country } = await request.json();
+    const { country, prioritizeTaxFree } = await request.json();
 
     if (!country || typeof country !== 'string') {
-      return NextResponse.json({ error: 'Invalid country parameter' }, { status: 400 });
+      return NextResponse.json({ error: '无效的国家参数' }, { status: 400 });
     }
 
     const supportedCountries = [
@@ -345,18 +371,25 @@ export async function POST(request: NextRequest) {
       'AR', 'EG', 'NG', 'ID'
     ];
     if (!supportedCountries.includes(country)) {
-      return NextResponse.json({ error: 'Unsupported country' }, { status: 400 });
+      return NextResponse.json({ error: '不支持的国家' }, { status: 400 });
+    }
+
+    let stateInfo: StateInfo;
+    if (prioritizeTaxFree) {
+      const taxFreeState = getRandomTaxFreeState(country);
+      stateInfo = taxFreeState || getRandomState(country);
+    } else {
+      stateInfo = getRandomState(country);
     }
 
     const gender = Math.random() > 0.5 ? '男' : '女';
-    const { state, isTaxFree } = getRandomState(country);
 
     const responseData: AddressData = {
       name: generateName(country),
       gender: gender,
       phone: generatePhone(country),
-      address: generateAddress(country, state),
-      isTaxFree: isTaxFree
+      address: generateAddress(country, stateInfo.state),
+      isTaxFree: stateInfo.isTaxFree
     };
 
     return NextResponse.json(responseData);

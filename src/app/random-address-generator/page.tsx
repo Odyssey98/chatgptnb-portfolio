@@ -24,6 +24,7 @@ export default function RandomAddressGenerator() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [noteInput, setNoteInput] = useState('');
   const [isTaxFree, setIsTaxFree] = useState(false);
+  const [prioritizeTaxFree, setPrioritizeTaxFree] = useState(true);
 
   useEffect(() => {
     generateAddress();
@@ -42,7 +43,7 @@ export default function RandomAddressGenerator() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ country }),
+        body: JSON.stringify({ country, prioritizeTaxFree }),
       });
       
       if (!response.ok) {
@@ -114,6 +115,18 @@ export default function RandomAddressGenerator() {
             >
               {getCountryOptions(country)}
             </select>
+          </div>
+          
+          {/* 添加免税区优先生成开关 */}
+          <div className="mb-6 flex items-center">
+            <input
+              type="checkbox"
+              id="prioritizeTaxFree"
+              checked={prioritizeTaxFree}
+              onChange={(e) => setPrioritizeTaxFree(e.target.checked)}
+              className="mr-2"
+            />
+            <label htmlFor="prioritizeTaxFree">优先生成免税区地址</label>
           </div>
           
           <div className="grid gap-4 mb-6">
