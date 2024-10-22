@@ -64,8 +64,13 @@ export default function RandomAddressGenerator() {
   };
 
   const copyToClipboard = (text: string, field: string) => {
-    navigator.clipboard.writeText(text);
-    alert(`已复制${field}`);
+    navigator.clipboard.writeText(text).then(() => {
+      setCopiedField(field);
+      setTimeout(() => setCopiedField(''), 2000); // 2秒后清除复制状态
+    }).catch(err => {
+      console.error('复制失败:', err);
+      alert('复制失败，请手动复制');
+    });
   };
 
   const openSaveModal = () => {
