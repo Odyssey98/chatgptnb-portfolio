@@ -8,9 +8,21 @@ interface AddressData {
   phone: string;
 }
 
-// 姓氏数据
-const lastNames = ['李', '王', '张', '刘', '陈', '杨', '黄', '赵', '吴', '周'];
-const firstNames = ['明', '华', '建国', '小红', '伟', '秀英', '军', '丽', '强', '云'];
+// 姓氏和名字数据
+const names = {
+  CN: {
+    last: ['李', '王', '张', '刘', '陈', '杨', '黄', '赵', '吴', '周'],
+    first: ['明', '华', '建国', '小红', '伟', '秀英', '军', '丽', '强', '云']
+  },
+  JP: {
+    last: ['佐藤', '鈴木', '高橋', '田中', '渡辺', '伊藤', '山本', '中村', '小林', '加藤'],
+    first: ['翔太', '陽菜', '大翔', '結衣', '颯太', '美咲', '拓海', 'さくら', '翔', '美羽']
+  },
+  US: {
+    last: ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Martinez'],
+    first: ['James', 'Mary', 'John', 'Patricia', 'Robert', 'Jennifer', 'Michael', 'Linda', 'William', 'Elizabeth']
+  }
+};
 
 // 街道名称
 const streets = {
@@ -57,13 +69,17 @@ function getRandomElement<T>(array: T[]): T {
 }
 
 function generateName(country: string): string {
-  if (country === 'CN') {
-    return getRandomElement(lastNames) + getRandomElement(firstNames);
-  } else if (country === 'JP') {
-    return getRandomElement(lastNames) + ' ' + getRandomElement(firstNames);
-  } else {
-    // 西方名字格式
-    return getRandomElement(firstNames) + ' ' + getRandomElement(lastNames);
+  const nameData = names[country as keyof typeof names] || names.US;
+  const lastName = getRandomElement(nameData.last);
+  const firstName = getRandomElement(nameData.first);
+
+  switch (country) {
+    case 'CN':
+      return lastName + firstName;
+    case 'JP':
+      return lastName + ' ' + firstName;
+    default:
+      return firstName + ' ' + lastName;
   }
 }
 
@@ -92,7 +108,15 @@ export async function POST(request: NextRequest) {
   try {
     const { country } = await request.json();
 
-    // 生成随机性别
+    if (!country || typeof country !== 'string') {
+      return NextResponse.json({ error: 'Invalid country parameter' }, { status: 400 });
+    }
+
+    const supportedCountries = ['US', 'CN', 'JP']; // 添加更多支持的国家代码
+    if (!supportedCountries.includes(country)) {
+      return NextResponse.json({ error: 'Unsupported country' }, { status: 400 });
+    }
+
     const gender = Math.random() > 0.5 ? '男' : '女';
 
     const responseData: AddressData = {
