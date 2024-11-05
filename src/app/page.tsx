@@ -13,6 +13,8 @@ const projects = [
   //TODO: 烟花弹射器，示例网站：https://confettitherapy.com/
   // { name: 'Boom!', description: 'Boom! Boom! Boom!', url: '/fireworks-launcher' },
   { name: '真实地址生成器', description: '生成真实可用的随机地址', url: '/random-address-generator' },
+  { name: '腹式呼吸练习器', description: '帮助你放松身心的呼吸练习工具', url: '/breathing-exercise' },
+
 ];
 
 export default function Home() {

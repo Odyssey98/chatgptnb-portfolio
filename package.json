@@ -17,6 +17,7 @@
     "jspdf": "^2.5.2",
     "jspdf-autotable": "^3.8.3",
     "leaflet": "^1.9.4",
+    "lucide-react": "^0.454.0",
     "mapillary-js": "^4.1.2",
     "marked": "^14.1.2",
     "next": "14.2.11",
