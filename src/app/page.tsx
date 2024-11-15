@@ -127,7 +127,7 @@ const translations: Translations = {
     exploreProject: "Explore Project"
   },
   zh: {
-    description: "探索有趣的实验项目，无需编写任何代码",
+    description: "以下项目全部使用AI生成，没有敲一行代码",
     experimentalProjects: "实验项目",
     exploreProject: "查看项目"
   }
