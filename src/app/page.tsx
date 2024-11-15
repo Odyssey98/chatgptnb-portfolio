@@ -232,9 +232,9 @@ export default function Home() {
                     <Button 
                       asChild 
                       variant="outline" 
-                      className="w-full border-[#97CC04] text-gray-700 hover:bg-[#E5FF7F]/20 hover:border-[#E5FF7F]"
+                      className="w-full border-[#97CC04] text-gray-700 hover:bg-[#E5FF7F]/20 hover:border-[#E5FF7F] bg-transparent active:bg-transparent focus:bg-transparent"
                     >
-                      <Link href={project.url}>
+                      <Link href={project.url} className="flex items-center justify-center text-gray-700 hover:text-gray-700 active:text-gray-700">
                         {translations[language].exploreProject}
                         <motion.span
                           whileHover={{ x: 5 }}
