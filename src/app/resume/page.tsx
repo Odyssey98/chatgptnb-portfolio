@@ -71,7 +71,7 @@ const translations: Translations = {
       phone: '19125233798',
       email: 'yongbi1217@163.com',
       location: 'Shenzhen',
-      github: 'Odyssey76',
+      github: 'Odyssey98',
     },
     personalInfo: {
       title: 'Personal Information',
@@ -188,41 +188,73 @@ const translations: Translations = {
           name: 'ChatMe (Web)',
           period: '2022.12 - 2023.02',
           description:
-            'A ChatGPT-like application with content moderation and payment system.',
-          responsibilities:
-            'Developed typewriter effect chat interface, mobile adaptation, payment system and internationalization.',
-          stack: 'Modern Web Stack + Markdown Processing',
-          highlights:
-            'Achieved high-performance frontend implementation with smooth user interactions and responsive design.',
+            '类ChatGPT智能对话平台，集成内容审核、多语言支持和会员充值功能。',
+          responsibilities: `
+            • 负责核心对话功能开发：
+              - 实现打字机效果的流式响应展示
+              - 开发Markdown实时渲染和代码高亮功能
+              - 设计对话上下文管理机制，支持多轮对话
+            • 系统功能开发和优化：
+              - 实现响应式布局，确保多端适配
+              - 开发完整的会员充值和权益系统
+              - 集成i18n实现多语言国际化
+            • 性能优化和体验提升：
+              - 实现消息队列，避免回复覆盖
+              - 添加骨架屏和加载动画
+              - 支持快捷键操作和历史记录
+          `,
+          stack: 'Next.js + TypeScript + i18n + Markdown渲染 + WebSocket',
+          highlights: `
+            • 用户平均响应等待时间降低40%
+            • 国际化支持覆盖95%的用户区域
+            • 用户满意度达到95%以上
+            • 支持连续对话长度提升3倍
+          `,
         },
         {
           name: 'Team Scaffold CLI',
           period: '2022.07 - 2022.10',
           description:
-            'A comprehensive CLI tool for standardizing project initialization across the team.',
+            '为提升团队开发效率，开发的一套标准化项目初始化工具，支持小程序、管理后台、H5等多种项目类型。',
           responsibilities: `
-            • Architected and developed a flexible CLI tool supporting multiple project types
-            • Implemented intelligent project template selection and configuration
-            • Created automated dependency management and version control integration
-            • Developed custom plugins for code style enforcement and git hooks
+            • 主导脚手架核心功能开发：
+              - 设计灵活的项目模板选择机制，支持多种项目类型的快速创建
+              - 实现项目配置的动态生成，包括依赖管理、环境配置和构建设置
+              - 开发自定义插件系统，支持代码规范检查、git hooks等功能扩展
+            • 工程化实践优化：
+              - 统一团队技术栈和开发规范，包括目录结构、代码风格等
+              - 集成常用工具链，如TypeScript、ESLint、Prettier、Husky等
+              - 提供完整的开发文档和最佳实践指南
           `,
-          stack: 'Node.js + Commander + Inquirer + Custom Plugins',
+          stack: 'Node.js + Commander + Inquirer + 自定义插件系统',
           highlights: `
-            • Reduced project setup time from 2 hours to 10 minutes
-            • Implemented intelligent dependency conflict resolution
-            • Created comprehensive documentation and integration guides
-            • Built with extensible plugin architecture for future enhancements
+            • 项目初始化时间从2小时减少到10分钟，大幅提升开发效率
+            • 通过统一规范和工具链，降低70%的项目维护成本
+            • 支持多种项目类型的一键创建，被团队100%采用
+            • 插件系统扩展性强，支持团队定制化需求
           `,
         },
         {
           name: 'ZA Bank (Mobile App)',
           period: '2021.06 - 2022.03',
           description:
-            'A comprehensive virtual bank in Hong Kong offering various banking services.',
-          responsibilities: 'Led the development of account opening module.',
-          stack: 'Mobile App Development Stack + Custom UI Components',
-          highlights:
-            'Successfully delivered a secure and user-friendly account opening experience.',
+            '香港领先的虚拟银行应用，提供全面的银行服务，包括存贷款、跨境支付和保险等。',
+          responsibilities: `
+            • 负责开户业务核心模块开发：
+              - 实现身份验证和活体检测流程
+              - 开发地址证明上传和OCR识别功能
+              - 对接香港监管要求的实名认证系统
+            • 负责节日营销活动页开发：
+              - 开发圣诞及新年拉新活动落地页
+              - 实现复杂的动画交互效果
+              - 优化活动页面性能，确保流畅的用户体验
+          `,
+          stack: 'React Native + TypeScript + 动画库',
+          highlights: `
+            • 优化开户流程，将完成率提升30%
+            • 活动页面转化率达到预期目标的150%
+            • 保持稳定的页面性能指标（FPS>55）
+          `,
         },
       ],
     },
@@ -241,7 +273,7 @@ const translations: Translations = {
       phone: '19125233798',
       email: 'yongbi1217@163.com',
       location: '深圳',
-      github: 'Odyssey76',
+      github: 'Odyssey98',
     },
     personalInfo: {
       title: '个人信息',
@@ -340,55 +372,86 @@ const translations: Translations = {
           period: '2023.02 - 2023.05',
           description: '一个企业级达人结算小程序，支持安全的验证机制。',
           responsibilities: `
-            • 主导整个小程序从架构设计到部署的开发工作
+            • 主导小程序从架构设计到部署的开发工作
             • 实现基于微信私密消息的安全认证流程
-            • 开发具有实时验证和自动保存功能的复杂表单系统
-            • 创建灵活的结算记录系统，支持高级筛选和导出功能
+            • 开发具有实时验证和自动保存的表单系统
+            • 创建支持高级筛选和导出的结算记录系统
           `,
           stack: '小程序开发技术栈 + 自定义错误追踪',
-          highlights: `
-            • 设计并实现自定义错误追踪系统，问题解决时间减少50%
-            • 通过组件优化将小程序包大小控制在2MB以内
-            • 通过健壮的错误处理和降级机制实现99.9%的可用性
-            • 实现离线数据持久化，改善弱网环境下的用户体验
-          `,
+          highlights:
+            '通过组件优化将小程序包控制在2MB以内，实现99.9%的可用性。',
         },
         {
           name: 'ChatMe (Web)',
           period: '2022.12 - 2023.02',
-          description: '类ChatGPT项目，集成文本审核和充值系统。',
-          responsibilities:
-            '负责打字机效果聊天界面、移动端适配、充值系统和国际化功能开发。',
-          stack: '现代Web开发技术栈 + Markdown处理',
-          highlights:
-            '实现了高性能的前端功能，确保流畅的用户交互和响应式设计。',
+          description:
+            '类ChatGPT智能对话平台，集成内容审核、多语言支持和会员充值功能。',
+          responsibilities: `
+            • 负责核心对话功能开发：
+              - 实现打字机效果的流式响应展示
+              - 开发Markdown实时渲染和代码高亮功能
+              - 设计对话上下文管理机制，支持多轮对话
+            • 系统功能开发和优化：
+              - 实现响应式布局，确保多端适配
+              - 开发完整的会员充值和权益系统
+              - 集成i18n实现多语言国际化
+            • 性能优化和体验提升：
+              - 实现消息队列，避免回复覆盖
+              - 添加骨架屏和加载动画
+              - 支持快捷键操作和历史记录
+          `,
+          stack: 'Next.js + TypeScript + i18n + Markdown渲染 + WebSocket',
+          highlights: `
+            • 用户平均响应等待时间降低40%
+            • 国际化支持覆盖95%的用户区域
+            • 用户满意度达到95%以上
+            • 支持连续对话长度提升3倍
+          `,
         },
         {
           name: '团队脚手架工具',
           period: '2022.07 - 2022.10',
-          description: '一个用于标准化团队项目初始化的综合性命令行工具。',
+          description:
+            '为提升团队开发效率，开发的一套标准化项目初始化工具，支持小程序、管理后台、H5等多种项目类型。',
           responsibilities: `
-            • 架构和开发支持多种项目类型的灵活命令行工具
-            • 实现智能项目模板选择和配置功能
-            • 创建自动化的依赖管理和版本控制集成
-            • 开发用于代码风格强制和git hooks的自定义插件
+            • 主导脚手架核心功能开发：
+              - 设计灵活的项目模板选择机制，支持多种项目类型的快速创建
+              - 实现项目配置的动态生成，包括依赖管理、环境配置和构建设置
+              - 开发自定义插件系统，支持代码规范检查、git hooks等功能扩展
+            • 工程化实践优化：
+              - 统一团队技术栈和开发规范，包括目录结构、代码风格等
+              - 集成常用工具链，如TypeScript、ESLint、Prettier、Husky等
+              - 提供完整的开发文档和最佳实践指南
           `,
-          stack: 'Node.js + Commander + Inquirer + 自定义插件',
+          stack: 'Node.js + Commander + Inquirer + 自定义插件系统',
           highlights: `
-            • 将项目搭建时间从2小时减少到10分钟
-            • 实现智能依赖冲突解决机制
-            • 创建完整的文档和集成指南
-            • 采用可扩展的插件架构以支持未来增强
+            • 项目初始化时间从2小时减少到10分钟，大幅提升开发效率
+            • 通过统一规范和工具链，降低70%的项目维护成本
+            • 支持多种项目类型的一键创建，被团队100%采用
+            • 插件系统扩展性强，支持团队定制化需求
           `,
         },
         {
           name: 'ZA Bank (移动端APP)',
           period: '2021.06 - 2022.03',
           description:
-            '香港综合性虚拟银行，提供存贷款、跨境支付等多种银行服务。',
-          responsibilities: '主要负责开户业务模块的开发。',
-          stack: '移动应用开发技术栈 + 自定义UI组件',
-          highlights: '成功交付了安全可靠、用户友好的开户体验。',
+            '香港领先的虚拟银行应用，提供全面的银行服务，包括存贷款、跨境支付和保险等。',
+          responsibilities: `
+            • 负责开户业务核心模块开发：
+              - 实现身份验证和活体检测流程
+              - 开发地址证明上传和OCR识别功能
+              - 对接香港监管要求的实名认证系统
+            • 负责节日营销活动页开发：
+              - 开发圣诞及新年拉新活动落地页
+              - 实现复杂的动画交互效果
+              - 优化活动页面性能，确保流畅的用户体验
+          `,
+          stack: 'React Native + TypeScript + 动画库',
+          highlights: `
+            • 优化开户流程，将完成率提升30%
+            • 活动页面转化率达到预期目标的150%
+            • 保持稳定的页面性能指标（FPS>55）
+          `,
         },
       ],
     },
@@ -461,20 +524,20 @@ export default function Resume() {
               {translations[language].contact.phone}
             </a>
             <a
-              href={`https://github.com/${translations[language].contact.github}`}
+              href="https://github.com/Odyssey98"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 hover:text-[#E5FF7F] transition-colors text-sm sm:text-base"
             >
               <Github size={16} className="sm:w-[18px] sm:h-[18px]" />
-              github.com/{translations[language].contact.github}
+              github.com/Odyssey98
             </a>
           </div>
         </div>
       </motion.header>
 
       {/* Main Content */}
-      <main className="max-w-4xl mx-auto px-4 sm:px-8 py-8 sm:py-16">
+      <main className="max-w-4xl mx-auto px-3 sm:px-8 py-6 sm:py-16">
         {/* Personal Info */}
         <motion.section
           className="mb-8 sm:mb-16"
@@ -528,45 +591,51 @@ export default function Resume() {
 
         {/* Skills */}
         <motion.section
-          className="mb-8 sm:mb-16"
+          className="mb-6 sm:mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <h2 className="text-xl sm:text-2xl font-bold border-b border-black pb-2 mb-4 sm:mb-6">
+          <h2 className="text-xl sm:text-2xl font-bold border-b border-black pb-2 mb-3 sm:mb-6">
             {translations[language].skills.title}
           </h2>
-          <ul className="list-disc list-inside text-gray-700 space-y-2 text-sm sm:text-base">
+          <ul className="list-disc list-inside text-gray-800 space-y-2">
             {translations[language].skills.items.map((skill, index) => (
-              <li key={index} className="break-words">
+              <li
+                key={index}
+                className="text-sm sm:text-base leading-relaxed pl-1"
+              >
                 {skill}
               </li>
             ))}
           </ul>
         </motion.section>
 
-        {/* Experience */}
+        {/* Experience - 移到项目经验前面 */}
         <motion.section
-          className="mb-8 sm:mb-16"
+          className="mb-6 sm:mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <h2 className="text-xl sm:text-2xl font-bold border-b border-black pb-2 mb-4 sm:mb-6">
+          <h2 className="text-xl sm:text-2xl font-bold border-b border-black pb-2 mb-3 sm:mb-6">
             {translations[language].experience.title}
           </h2>
-          <div className="space-y-6 sm:space-y-8">
+          <div className="space-y-5 sm:space-y-8">
             {translations[language].experience.jobs.map((job, index) => (
-              <div key={index}>
-                <h3 className="text-lg sm:text-xl font-bold mb-2">
+              <div key={index} className="bg-white rounded-lg p-3 sm:p-0">
+                <h3 className="text-base sm:text-xl font-bold text-gray-900 mb-2">
                   {job.position}
                 </h3>
-                <p className="text-gray-600 mb-2 text-sm sm:text-base">
+                <p className="text-gray-600 text-xs sm:text-sm mb-2">
                   {job.company} | {job.period}
                 </p>
-                <ul className="list-disc list-inside text-gray-700 space-y-2 text-sm sm:text-base">
+                <ul className="list-disc list-inside text-gray-800 space-y-2">
                   {job.responsibilities.map((responsibility, index) => (
-                    <li key={index} className="break-words">
+                    <li
+                      key={index}
+                      className="text-sm sm:text-base leading-relaxed pl-1"
+                    >
                       {responsibility}
                     </li>
                   ))}
@@ -576,38 +645,44 @@ export default function Resume() {
           </div>
         </motion.section>
 
-        {/* Projects */}
+        {/* Projects - 移到工作经验后面 */}
         <motion.section
-          className="mb-8 sm:mb-16"
+          className="mb-6 sm:mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
         >
-          <h2 className="text-xl sm:text-2xl font-bold border-b border-black pb-2 mb-4 sm:mb-6">
+          <h2 className="text-xl sm:text-2xl font-bold border-b border-black pb-2 mb-3 sm:mb-6">
             {translations[language].projects.title}
           </h2>
-          <div className="space-y-6 sm:space-y-8">
+          <div className="space-y-5 sm:space-y-8">
             {translations[language].projects.items.map((project, index) => (
-              <div key={index}>
-                <h3 className="text-lg sm:text-xl font-bold mb-2">
-                  {project.name}{' '}
-                  <span className="text-gray-500 font-normal text-sm sm:text-base">
-                    ({project.period})
-                  </span>
+              <div key={index} className="bg-white rounded-lg p-3 sm:p-0">
+                <h3 className="text-base sm:text-xl font-bold text-gray-900 mb-2">
+                  {project.name}
                 </h3>
-                <p className="text-gray-700 mb-2 text-sm sm:text-base">
+                <p className="text-gray-600 text-xs sm:text-sm mb-2">
+                  {project.period}
+                </p>
+                <p className="text-gray-800 text-sm sm:text-base mb-3 leading-relaxed">
                   {project.description}
                 </p>
-                <p className="text-gray-700 mb-2 text-sm sm:text-base">
-                  {project.responsibilities}
-                </p>
-                <p className="text-gray-600 mb-2 text-sm sm:text-base">
-                  <span className="font-semibold">技术栈：</span>
-                  {project.stack}
-                </p>
-                <p className="text-gray-700 text-sm sm:text-base">
-                  {project.highlights}
-                </p>
+                <div className="space-y-2 mb-3">
+                  <p className="text-gray-800 text-sm sm:text-base whitespace-pre-line leading-relaxed">
+                    {project.responsibilities}
+                  </p>
+                </div>
+                <div className="text-xs sm:text-sm space-y-2">
+                  <p className="text-gray-800">
+                    <span className="font-semibold text-gray-900">
+                      技术栈：
+                    </span>
+                    {project.stack}
+                  </p>
+                  <p className="text-gray-800 whitespace-pre-line leading-relaxed">
+                    {project.highlights}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
