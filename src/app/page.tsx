@@ -21,6 +21,7 @@ import {
   Zap,
   Calculator,
   ExternalLink,
+  Github,
 } from 'lucide-react';
 
 // 定义项目类型
@@ -144,6 +145,7 @@ type Translations = {
     description: string;
     experimentalProjects: string;
     exploreProject: string;
+    viewResume: string;
   };
 };
 
@@ -153,11 +155,13 @@ const translations: Translations = {
       'Explore fascinating experimental projects without writing a single line of code',
     experimentalProjects: 'Experimental Projects',
     exploreProject: 'Explore Project',
+    viewResume: 'View My Resume',
   },
   zh: {
     description: '以下项目全部使用AI生成，没有敲一行代码',
     experimentalProjects: '实验项目',
     exploreProject: '查看项目',
+    viewResume: '查看我的简历',
   },
 };
 
@@ -292,6 +296,38 @@ export default function Home() {
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1 }}
       >
+        <motion.div
+          className="flex justify-center gap-4 mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.4 }}
+        >
+          <Button
+            asChild
+            variant="outline"
+            className="border-[#97CC04] text-gray-700 hover:bg-[#E5FF7F]/20 hover:border-[#E5FF7F] bg-transparent"
+          >
+            <Link href="/resume" className="flex items-center gap-2">
+              {translations[language].viewResume}
+              <ExternalLink className="w-4 h-4" />
+            </Link>
+          </Button>
+          <Button
+            asChild
+            variant="outline"
+            className="border-[#97CC04] text-gray-700 hover:bg-[#E5FF7F]/20 hover:border-[#E5FF7F] bg-transparent"
+          >
+            <Link
+              href="https://github.com/Odyssey98"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2"
+            >
+              <Github className="w-4 h-4" />
+              GitHub
+            </Link>
+          </Button>
+        </motion.div>
         <p>© {new Date().getFullYear()} Odyssey&apos;s</p>
       </motion.footer>
     </div>
