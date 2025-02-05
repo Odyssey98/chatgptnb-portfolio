@@ -83,14 +83,14 @@ const translations: Translations = {
     skills: {
       title: 'Professional Skills',
       items: [
-        'Proficient in modern frontend development and engineering practices',
-        'Rich experience in web performance optimization',
-        'Rich experience in responsive design and mobile adaptation',
-        'Proficient in modern frontend build tools and engineering',
-        'Experienced in component development and architecture design',
-        'Familiar with browser rendering mechanisms',
-        'Familiar with frontend testing and CI/CD',
-        'Familiar with Mini Program development',
+        'Proficient in HTML5/CSS3, including modern layouts (Flexbox/Grid), animations, and responsive design',
+        'Proficient in JavaScript ES6+, including async programming, modular development, and design patterns',
+        'Proficient in modern frontend frameworks and state management, with deep understanding of component architecture',
+        'Proficient in TypeScript development, including type system, generics, and advanced type utilities',
+        'Experienced in frontend engineering, including build optimization, module federation, and development efficiency',
+        'Experienced in frontend performance optimization, including rendering optimization and resource loading',
+        'Familiar with browser principles, including rendering pipeline and runtime optimization',
+        'Familiar with cross-platform development, including Mini Program and hybrid solutions',
       ],
       frontendDev: 'Frontend Development',
       toolsOthers: 'Tools & Others',
@@ -124,41 +124,69 @@ const translations: Translations = {
       title: 'Project Experience',
       items: [
         {
-          name: 'FacePlay (Web)',
-          period: '2023.08 - 2024.01',
+          name: 'FacePlay Mini Program',
+          period: '2023.10 - Present',
           description:
-            'A web application for face swapping in images/videos with payment and history features.',
-          responsibilities:
-            'Developed drag-and-drop upload, video frame extraction with WebAssembly FFmpeg, payment system and user history modules.',
+            'A comprehensive Mini Program supporting multiple AI creation capabilities including text generation, face swapping, and AI drawing.',
+          responsibilities: `
+            • Led development of core creation workflow modules:
+              - Designed unified template creation process with reusable upload, preview, and payment components
+              - Implemented differentiated workflows for various templates (single/multi-face swap, AE effects)
+              - Integrated commercial features including paid membership and ad-based unlocking
+            • Optimized user experience and performance:
+              - Implemented comprehensive material preprocessing with format validation and size limits
+              - Enhanced interaction fluidity through debouncing and performance optimization
+              - Introduced Redux for centralized state management of user info and payment status
+          `,
+          stack: 'React + TypeScript + Taro + Redux + Less',
+          highlights: `
+            • Improved code maintainability with 50% component reuse rate
+            • Reduced invalid uploads by 70% through preprocessing
+            • Achieved smooth user experience with sub-second response time
+            • Successfully integrated multiple monetization channels
+          `,
+        },
+        {
+          name: 'FacePlay (Web)',
+          period: '2023.06 - 2023.09',
+          description:
+            'A commercial face-swapping web application with payment integration and user history tracking.',
+          responsibilities: `
+            • Independently developed the core drag-and-drop upload module with progress tracking and validation
+            • Implemented video frame extraction using WebAssembly FFmpeg, reducing processing time by 60%
+            • Built a robust payment system with multiple payment methods and order management
+            • Developed comprehensive user history tracking with filtering and export capabilities
+          `,
           stack: 'Modern Frontend Stack + WebAssembly + FFmpeg',
-          highlights:
-            'Optimized video frame extraction process and solved CORS issues, significantly improving upload performance and user experience.',
+          highlights: `
+            • Solved CORS issues in video frame extraction through custom Vite configuration and backend collaboration
+            • Implemented chunked upload for large files with resume capability
+            • Achieved 98% test coverage for core business logic
+            • Optimized initial load time by 40% through code splitting and lazy loading
+          `,
         },
         {
           name: 'Influencer Settlement (Mini Program)',
-          period: '2023.04 - 2023.08',
+          period: '2023.02 - 2023.05',
           description:
-            'A WeChat Mini Program for influencer settlement with private message verification.',
-          responsibilities:
-            'Developed the entire Mini Program including authentication, form submission, settlement records and private card sharing.',
+            'An enterprise WeChat Mini Program for influencer payment management with secure verification.',
+          responsibilities: `
+            • Led the development of the entire Mini Program from architecture design to deployment
+            • Implemented secure authentication flow with WeChat private message verification
+            • Developed complex form systems with real-time validation and auto-save
+            • Created a flexible settlement record system with advanced filtering and export features
+          `,
           stack: 'Mini Program Development Stack + Custom Error Tracking',
-          highlights:
-            'Implemented custom error reporting mechanism to improve issue identification efficiency with WeChat API integration.',
-        },
-        {
-          name: 'Team Scaffold CLI',
-          period: '2022.07 - 2022.10',
-          description:
-            'Internal scaffolding tool for standardizing team project setup.',
-          responsibilities:
-            'Led the development of CLI tool supporting Mini Program, backend and H5/Web project types.',
-          stack: 'Node.js + Commander + Inquirer',
-          highlights:
-            'Automated project initialization process, significantly reducing setup time and maintaining consistency across team projects.',
+          highlights: `
+            • Designed and implemented a custom error tracking system reducing issue resolution time by 50%
+            • Optimized Mini Program package size to under 2MB through component optimization
+            • Achieved 99.9% uptime through robust error handling and fallback mechanisms
+            • Implemented offline data persistence improving user experience in poor network conditions
+          `,
         },
         {
           name: 'ChatMe (Web)',
-          period: '2022.12 - 2023.03',
+          period: '2022.12 - 2023.02',
           description:
             'A ChatGPT-like application with content moderation and payment system.',
           responsibilities:
@@ -166,6 +194,25 @@ const translations: Translations = {
           stack: 'Modern Web Stack + Markdown Processing',
           highlights:
             'Achieved high-performance frontend implementation with smooth user interactions and responsive design.',
+        },
+        {
+          name: 'Team Scaffold CLI',
+          period: '2022.07 - 2022.10',
+          description:
+            'A comprehensive CLI tool for standardizing project initialization across the team.',
+          responsibilities: `
+            • Architected and developed a flexible CLI tool supporting multiple project types
+            • Implemented intelligent project template selection and configuration
+            • Created automated dependency management and version control integration
+            • Developed custom plugins for code style enforcement and git hooks
+          `,
+          stack: 'Node.js + Commander + Inquirer + Custom Plugins',
+          highlights: `
+            • Reduced project setup time from 2 hours to 10 minutes
+            • Implemented intelligent dependency conflict resolution
+            • Created comprehensive documentation and integration guides
+            • Built with extensible plugin architecture for future enhancements
+          `,
         },
         {
           name: 'ZA Bank (Mobile App)',
@@ -206,14 +253,14 @@ const translations: Translations = {
     skills: {
       title: '专业技能',
       items: [
-        '精通现代前端开发和工程化实践',
-        '丰富的 Web 性能优化经验',
-        '丰富的响应式设计和移动端适配经验',
-        '精通现代前端构建工具和工程化',
-        '丰富的组件开发和架构设计经验',
-        '熟悉浏览器渲染机制',
-        '熟悉前端测试和 CI/CD',
-        '熟悉小程序开发',
+        '精通 HTML5/CSS3，包括现代布局（Flexbox/Grid）、动画和响应式设计',
+        '精通 JavaScript ES6+，包括异步编程、模块化开发和设计模式',
+        '精通现代前端框架和状态管理，对组件化架构有深入理解',
+        '精通 TypeScript 开发，包括类型系统、泛型和高级类型工具',
+        '丰富的前端工程化经验，包括构建优化、模块联邦和开发效率提升',
+        '丰富的前端性能优化经验，包括渲染优化和资源加载优化',
+        '熟悉浏览器原理，包括渲染管线和运行时优化',
+        '熟悉跨平台开发，包括小程序和混合解决方案',
       ],
       frontendDev: '前端开发',
       toolsOthers: '工具和其他',
@@ -247,46 +294,92 @@ const translations: Translations = {
       title: '项目经验',
       items: [
         {
-          name: 'FacePlay (Web版)',
-          period: '2023.08 - 2024.01',
+          name: 'FacePlay小程序',
+          period: '2023.10 - 至今',
           description:
-            '开发了一个允许用户上传图片或视频进行换脸的Web应用，支持充值和历史记录查看。',
-          responsibilities:
-            '独立负责用户的拖拽上传功能、使用WebAssembly版本的FFmpeg进行视频截帧，以及充值系统和用户制作记录模块的开发。',
+            '支持文字生成、换脸合成、AI绘画等多种AI创作能力的综合性小程序。',
+          responsibilities: `
+            • 负责小程序核心制作流程模块开发：
+              - 设计实现统一的模板制作流程，抽象通用的上传、预览、支付等功能组件
+              - 针对不同类型模板（单人/多人换脸、AE特效等）实现差异化制作流程
+              - 集成支付、广告等商业变现功能，实现用户付费/看广告解锁会员权益
+            • 优化用户体验和性能表现：
+              - 实现素材上传前的格式校验、大小限制等预处理，避免无效上传
+              - 使用防抖等性能优化手段，提升交互流畅度
+              - 引入Redux统一管理用户信息、支付状态等全局数据
+          `,
+          stack: 'React + TypeScript + Taro + Redux + Less',
+          highlights: `
+            • 通过组件复用提升代码可维护性，复用率达50%
+            • 通过预处理机制减少70%的无效上传
+            • 实现亚秒级的交互响应速度
+            • 成功集成多种商业变现渠道
+          `,
+        },
+        {
+          name: 'FacePlay (Web版)',
+          period: '2023.06 - 2023.09',
+          description:
+            '一个商业化的人脸换换Web应用，集成支付系统和用户历史记录功能。',
+          responsibilities: `
+            • 独立开发核心拖拽上传模块，包含进度跟踪和验证功能
+            • 使用WebAssembly版本的FFmpeg实现视频帧提取，处理时间减少60%
+            • 构建支持多种支付方式的完整支付系统和订单管理
+            • 开发带有筛选和导出功能的用户制作记录系统
+          `,
           stack: '现代前端技术栈 + WebAssembly + FFmpeg',
-          highlights:
-            '优化了视频帧提取过程并解决了跨域问题，显著提升了上传性能和用户体验。',
+          highlights: `
+            • 通过自定义Vite配置和后端协作解决视频帧提取的跨域问题
+            • 实现大文件分片上传和断点续传功能
+            • 核心业务逻辑测试覆盖率达到98%
+            • 通过代码分割和懒加载优化首次加载时间减少40%
+          `,
         },
         {
           name: '达人结算（微信小程序）',
-          period: '2023.04 - 2023.08',
-          description: '一个面向运营的达人结算小程序，支持微信私密消息验证。',
-          responsibilities:
-            '负责整个小程序的登录注册、表单填写、结算记录查询和私密卡片分享功能的开发。',
+          period: '2023.02 - 2023.05',
+          description: '一个企业级达人结算小程序，支持安全的验证机制。',
+          responsibilities: `
+            • 主导整个小程序从架构设计到部署的开发工作
+            • 实现基于微信私密消息的安全认证流程
+            • 开发具有实时验证和自动保存功能的复杂表单系统
+            • 创建灵活的结算记录系统，支持高级筛选和导出功能
+          `,
           stack: '小程序开发技术栈 + 自定义错误追踪',
-          highlights:
-            '针对微信API集成难点，引入自定义错误上报机制，提高问题定位效率。',
-        },
-        {
-          name: '团队脚手架工具',
-          period: '2022.07 - 2022.10',
-          description:
-            '为满足快速响应需求，统一团队项目技术栈，搭建公司内部脚手架。',
-          responsibilities:
-            '主导开发了支持小程序、后台及H5/Web三种项目类型的命令行工具。',
-          stack: 'Node.js + Commander + Inquirer',
-          highlights:
-            '自动化项目初始化流程，显著减少项目设置时间，保持团队项目一致性。',
+          highlights: `
+            • 设计并实现自定义错误追踪系统，问题解决时间减少50%
+            • 通过组件优化将小程序包大小控制在2MB以内
+            • 通过健壮的错误处理和降级机制实现99.9%的可用性
+            • 实现离线数据持久化，改善弱网环境下的用户体验
+          `,
         },
         {
           name: 'ChatMe (Web)',
-          period: '2022.12 - 2023.03',
+          period: '2022.12 - 2023.02',
           description: '类ChatGPT项目，集成文本审核和充值系统。',
           responsibilities:
             '负责打字机效果聊天界面、移动端适配、充值系统和国际化功能开发。',
           stack: '现代Web开发技术栈 + Markdown处理',
           highlights:
             '实现了高性能的前端功能，确保流畅的用户交互和响应式设计。',
+        },
+        {
+          name: '团队脚手架工具',
+          period: '2022.07 - 2022.10',
+          description: '一个用于标准化团队项目初始化的综合性命令行工具。',
+          responsibilities: `
+            • 架构和开发支持多种项目类型的灵活命令行工具
+            • 实现智能项目模板选择和配置功能
+            • 创建自动化的依赖管理和版本控制集成
+            • 开发用于代码风格强制和git hooks的自定义插件
+          `,
+          stack: 'Node.js + Commander + Inquirer + 自定义插件',
+          highlights: `
+            • 将项目搭建时间从2小时减少到10分钟
+            • 实现智能依赖冲突解决机制
+            • 创建完整的文档和集成指南
+            • 采用可扩展的插件架构以支持未来增强
+          `,
         },
         {
           name: 'ZA Bank (移动端APP)',
@@ -412,6 +505,27 @@ export default function Resume() {
           </div>
         </motion.section>
 
+        {/* Education */}
+        <motion.section
+          className="mb-8 sm:mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+        >
+          <h2 className="text-xl sm:text-2xl font-bold border-b border-black pb-2 mb-4 sm:mb-6">
+            {translations[language].education.title}
+          </h2>
+          <div>
+            <h3 className="text-lg sm:text-xl font-bold mb-2">
+              {translations[language].education.university}
+            </h3>
+            <p className="text-gray-600 text-sm sm:text-base">
+              {translations[language].education.faculty} |{' '}
+              {translations[language].education.period}
+            </p>
+          </div>
+        </motion.section>
+
         {/* Skills */}
         <motion.section
           className="mb-8 sm:mb-16"
@@ -496,26 +610,6 @@ export default function Resume() {
                 </p>
               </div>
             ))}
-          </div>
-        </motion.section>
-
-        {/* Education */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1 }}
-        >
-          <h2 className="text-xl sm:text-2xl font-bold border-b border-black pb-2 mb-4 sm:mb-6">
-            {translations[language].education.title}
-          </h2>
-          <div>
-            <h3 className="text-lg sm:text-xl font-bold mb-2">
-              {translations[language].education.university}
-            </h3>
-            <p className="text-gray-600 text-sm sm:text-base">
-              {translations[language].education.faculty} |{' '}
-              {translations[language].education.period}
-            </p>
           </div>
         </motion.section>
       </main>
