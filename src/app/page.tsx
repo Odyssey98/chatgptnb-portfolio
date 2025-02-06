@@ -41,6 +41,18 @@ type Project = {
 const projects: Project[] = [
   {
     name: {
+      en: 'Phantom Wallet Connect',
+      zh: 'Phantom 钱包连接',
+    },
+    description: {
+      en: 'Connect and interact with Solana blockchain through Phantom wallet',
+      zh: '通过 Phantom 钱包连接并与 Solana 区块链交互',
+    },
+    url: 'https://phantomconnect.netlify.app/',
+    icon: <Zap className="w-6 h-6" />,
+  },
+  {
+    name: {
       en: 'FinSight AI',
       zh: 'FinSight AI',
     },
