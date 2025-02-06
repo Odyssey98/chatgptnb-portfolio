@@ -163,15 +163,14 @@ type Translations = {
 
 const translations: Translations = {
   en: {
-    description:
-      'Explore fascinating experimental projects without writing a single line of code',
-    experimentalProjects: 'Experimental Projects',
+    description: '',
+    experimentalProjects: 'Projects',
     exploreProject: 'Explore Project',
     viewResume: 'View My Resume',
   },
   zh: {
-    description: '以下项目全部使用AI生成，没有敲一行代码',
-    experimentalProjects: '实验项目',
+    description: '',
+    experimentalProjects: '项目展示',
     exploreProject: '查看项目',
     viewResume: '查看我的简历',
   },
