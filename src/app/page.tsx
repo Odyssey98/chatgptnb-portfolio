@@ -19,9 +19,10 @@ import {
   Cpu,
   Brain,
   Zap,
-  Calculator,
+  // Calculator,
   ExternalLink,
   Github,
+  Video,
 } from 'lucide-react';
 
 // 定义项目类型
@@ -41,18 +42,6 @@ type Project = {
 const projects: Project[] = [
   {
     name: {
-      en: 'Phantom Wallet Connect',
-      zh: 'Phantom 钱包连接',
-    },
-    description: {
-      en: 'Connect and interact with Solana blockchain through Phantom wallet',
-      zh: '通过 Phantom 钱包连接并与 Solana 区块链交互',
-    },
-    url: 'https://phantomconnect.netlify.app/',
-    icon: <Zap className="w-6 h-6" />,
-  },
-  {
-    name: {
       en: 'FinSight AI',
       zh: 'FinSight AI',
     },
@@ -62,6 +51,18 @@ const projects: Project[] = [
     },
     url: 'https://ai.chatgptnb.com/',
     icon: <Brain className="w-6 h-6" />,
+  },
+  {
+    name: {
+      en: 'Time Value',
+      zh: '用时宝',
+    },
+    description: {
+      en: 'Let data tell you the daily cost of your electronic devices',
+      zh: '让数据告诉你电子设备的每日使用成本',
+    },
+    url: 'https://ysb.chatgptnb.com/',
+    icon: <Zap className="w-6 h-6" />,
   },
   {
     name: {
@@ -75,17 +76,18 @@ const projects: Project[] = [
     url: 'https://xhs.chatgptnb.com/',
     icon: <Code className="w-6 h-6" />,
   },
+
   {
     name: {
-      en: 'Time Value',
-      zh: '用时宝',
+      en: 'Video Timeline Editor',
+      zh: '视频时间轴编辑器',
     },
     description: {
-      en: 'Let data tell you the daily cost of your electronic devices',
-      zh: '让数据告诉你电子设备的每日使用成本',
+      en: 'Simple drag-and-drop video timeline editor',
+      zh: '简单的视频时间轴拖拽编辑器',
     },
-    url: 'https://ysb.chatgptnb.com/',
-    icon: <Zap className="w-6 h-6" />,
+    url: 'https://videotimeline.netlify.app/',
+    icon: <Video className="w-6 h-6" />,
   },
   {
     name: {
@@ -125,6 +127,18 @@ const projects: Project[] = [
   },
   {
     name: {
+      en: 'Phantom Wallet Connect',
+      zh: 'Phantom 钱包连接',
+    },
+    description: {
+      en: 'Connect and interact with Solana blockchain through Phantom wallet',
+      zh: '通过 Phantom 钱包连接并与 Solana 区块链交互',
+    },
+    url: 'https://phantomconnect.netlify.app/',
+    icon: <Zap className="w-6 h-6" />,
+  },
+  {
+    name: {
       en: 'Diaphragmatic Breathing Exercise',
       zh: '腹式呼吸练习',
     },
@@ -135,18 +149,18 @@ const projects: Project[] = [
     url: '/breathing-exercise',
     icon: <Cpu className="w-6 h-6" />,
   },
-  {
-    name: {
-      en: '2024 Retirement Calculator',
-      zh: '2024最新退休年龄计算器',
-    },
-    description: {
-      en: 'Calculate your retirement age now!',
-      zh: '立即计算你的退休年龄！',
-    },
-    url: 'https://tuixiu.chatgptnb.com',
-    icon: <Calculator className="w-6 h-6" />,
-  },
+  // {
+  //   name: {
+  //     en: '2024 Retirement Calculator',
+  //     zh: '2024最新退休年龄计算器',
+  //   },
+  //   description: {
+  //     en: 'Calculate your retirement age now!',
+  //     zh: '立即计算你的退休年龄！',
+  //   },
+  //   url: 'https://tuixiu.chatgptnb.com',
+  //   icon: <Calculator className="w-6 h-6" />,
+  // },
 ];
 
 // 添加类型定义
